@@ -11,7 +11,16 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
+    <activity
+        android:id="@+id/navigation_credit_card"
+        android:name="com.example.empatkali.ui.creditcard.CreditCardActivity"
+        android:label="Input Kartu Kredit"
+        tools:layout="@layout/activity_order" >
+        <action
+            android:id="@+id/action_navigation_credit_card_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </activity>
+    <!--<fragment
         android:id="@+id/navigation_credit_card"
         android:name="com.example.empatkali.ui.creditcard.CreditCardFragment"
         android:label="Input Kartu Kredit"
@@ -19,7 +28,7 @@
         <action
             android:id="@+id/action_navigation_credit_card_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
-    </fragment>
+    </fragment>-->
 
     <fragment
         android:id="@+id/navigation_dashboard"
