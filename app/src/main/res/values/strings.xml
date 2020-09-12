@@ -68,6 +68,7 @@
     <!--Idling Resources loading message-->
     <string name="loading_msg">Your tea is brewing…</string>
     <string name="done_msg">Your tea is ready!</string>
+    <string name="credit_card">Credit Card</string>
 
 
     <!--Spinner Options-->

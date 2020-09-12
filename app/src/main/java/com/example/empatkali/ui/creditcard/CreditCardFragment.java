@@ -2,6 +2,7 @@ package com.example.empatkali.ui.creditcard;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.empatkali.R;
+import com.example.empatkali.databinding.CreditCardFragmentBinding;
 
 public class CreditCardFragment extends Fragment {
     private CreditCardViewModel mViewModel;
     private TextWatcher numberTextWatcher, ccvTextWatcher, monthTextWatcher, yearTextWatcher;
+    private CreditCardFragmentBinding b;
 
     public static CreditCardFragment newInstance() {
         return new CreditCardFragment();
@@ -49,7 +52,16 @@ public class CreditCardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.credit_card_fragment, container, false);
+        View view = inflater.inflate(R.layout.credit_card_fragment, container, false);
+        b = CreditCardFragmentBinding.bind(view);
+
+        b.BUTTONToActivity.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(), CreditCardActivity.class);
+            startActivity(intent);
+            //getActivity().finish();//ng
+        });
+
+        return view;
     }
 
     @Override
