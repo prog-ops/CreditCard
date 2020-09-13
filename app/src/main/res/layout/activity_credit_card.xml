@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".ui.creditcard.CreditCardActivity">
+    <!--<com.devmarvel.creditcardentry.library.CreditCardForm
+        android:id="@+id/credit_card_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app2:helper_text_color="@color/text_helper_color"
+        app2:include_helper="false"
+        app2:include_zip="false"/>-->
+
+    <LinearLayout
+        android:id="@+id/linear_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_linear"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app2:layout_constraintEnd_toEndOf="parent"
+        app2:layout_constraintStart_toStartOf="parent"
+        app2:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/EDIT_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_edit_text"
+            android:hint="@string/_0000_0000_0000_0000"
+            android:inputType="number"
+            android:maxLength="16"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/TV_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLength="16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_ccv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_linear"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app2:layout_constraintEnd_toEndOf="parent"
+        app2:layout_constraintStart_toStartOf="parent"
+        app2:layout_constraintTop_toBottomOf="@id/linear_number">
+
+        <EditText
+            android:id="@+id/EDIT_ccv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_edit_text"
+            android:hint="@string/ccv"
+            android:inputType="number"
+            android:maxLength="3"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/TV_ccv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLength="3"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@id/linear_number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_expiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_linear"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app2:layout_constraintEnd_toEndOf="parent"
+        app2:layout_constraintStart_toStartOf="parent"
+        app2:layout_constraintTop_toBottomOf="@id/linear_ccv">
+
+        <EditText
+            android:id="@+id/EDIT_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_edit_text"
+            android:hint="@string/expiry_date_month"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/TV_expiry_date_month"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:maxLength="4"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/TV_ccv" />
+
+        <EditText
+            android:id="@+id/EDIT_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_edit_text"
+            android:hint="@string/expiry_date_year"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/TV_expiry_date_year"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLength="4"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/TV_expiry_date_month" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_linear"
+        android:gravity="center"
+        android:padding="10dp"
+        app2:layout_constraintBottom_toBottomOf="parent"
+        app2:layout_constraintEnd_toEndOf="parent"
+        app2:layout_constraintStart_toStartOf="parent"
+        app2:layout_constraintTop_toBottomOf="@id/linear_expiry">
+        <!--<Button
+            android:id="@+id/BUTTON_decrement"
+            android:text="decrement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/BUTTON_increment"
+            android:text="increment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />-->
+        <Button
+            android:id="@+id/BUTTON_cek_validitas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cek" />
+
+        <Button
+            android:id="@+id/BUTTON_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
