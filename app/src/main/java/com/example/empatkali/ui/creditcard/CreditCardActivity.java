@@ -10,15 +10,13 @@ import android.widget.Toast;
 
 import com.example.empatkali.constants.CardType;
 import com.example.empatkali.databinding.ActivityCreditCardBinding;
-import com.example.empatkali.databinding.ActivityOrderBinding;
-import com.example.empatkali.databinding.CreditCardFragmentBinding;
 
 public class CreditCardActivity extends AppCompatActivity {
     ActivityCreditCardBinding b;
     private CreditCardViewModel mViewModel;
     private TextWatcher ccvTextWatcher,
             monthTextWatcher, yearTextWatcher;
-    String numberText;
+    String numberStr;
     static int number = 0;
 
     @Override
@@ -32,16 +30,24 @@ public class CreditCardActivity extends AppCompatActivity {
         b.EDITNumber.addTextChangedListener(numberTextWatcher);
 
         b.BUTTONCekValiditas.setOnClickListener(v->{
-            b.TVNumber.setText(numberText);
+//            b.TVNumber.setText(numberStr);
+            b.TVNumber.setText("12345");
 
-            String isValidStr = b.EDITNumber.getText().toString();
-            CardType.detect(isValidStr);
+            if (b.TVNumber.getText().toString().matches("[0-9]+")) {
+                //* PASSED TEST
+                Toast.makeText(this, "tvNumber valid regex", Toast.LENGTH_SHORT).show();
+            } else {
+                //* PASSED TEST
+                Toast.makeText(this, "tvNumber invalid", Toast.LENGTH_SHORT).show();
+            }
 
-            if (isValid(isValidStr)) {
+            /*CardType.detect(numberStr);
+
+            if (isValid(numberStr)) {
                 Toast.makeText(this, "number valid", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "number SALAH", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         });
     }
 
@@ -51,12 +57,13 @@ public class CreditCardActivity extends AppCompatActivity {
         }
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                numberText = charSequence.toString();
+//                numberStr = charSequence.toString();
         }
         @Override
         public void afterTextChanged(Editable editable) {
-            numberText = editable.toString();
-            b.TVNumber.setText(numberText);//ng bisa
+            numberStr = editable.toString();
+            if (!numberStr.isEmpty())
+                b.TVNumber.setText(numberStr);//ng bisa
         }
     };
 

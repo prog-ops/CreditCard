@@ -1,22 +1,30 @@
 package com.example.empatkali;
 
+import android.view.View;
+import android.widget.EditText;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.empatkali.constants.CardType;
 import com.example.empatkali.ui.creditcard.CreditCardActivity;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.regex.Matcher;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static java.util.EnumSet.allOf;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
@@ -25,18 +33,45 @@ public class CreditCardActivityTest {
     public ActivityTestRule<CreditCardActivity> mActivityTestRule =
             new ActivityTestRule<>(CreditCardActivity.class);
 
+    @Test//*PASSED
+    public void checkEditNumberHint(){
+        onView((withId(R.id.EDIT_number))).check(matches(withHint("0000000000000000")));
+    }
+    @Test//*PASSED
+    public void performEditNumberText(){
+        String regex = "[0-9]+";
+        onView(withId(R.id.EDIT_number)).perform(typeText(regex));
+    }
+    @Test
+    public void checkTvNumberText(){
+        String regex = "[0-9]+";
+        onView(withId(R.id.TV_number)).check(matches(withText(regex)));
+    }
+
+    @Test
+    public void performButtonValiditas(){
+        onView((withId(R.id.BUTTON_cek_validitas))).perform(click());
+    }
+
     @Test
     public void inputEditNumber(){
+        String regex = "[0-9]+";
+
         //! INITIAL
-        onView((withId(R.id.EDIT_number))).check(matches(withHint("0000000000000000")));
-        onView((withId(R.id.TV_number))).check(matches(withText("")));
+        /*//* Here's a solution without using a custom matcher:
+        onView(withId(R.id.EDIT_number)).check(matches(allOf(
+                hasDescendant(allOf(withId(R.id.edtUserId), withText(mStringToBetyped))),
+                hasDescendant(allOf(withId(R.id.edtPass), withText(mStringToBetyped)))
+        )));*/
 
         //! 2ND PERFORM
         onView((withId(R.id.EDIT_number))).perform(typeText("4000056655665556"));
         onView((withId(R.id.BUTTON_cek_validitas))).perform(click());
 
         //! RESULTS
-        onView((withId(R.id.TV_number))).check(matches(withText("4000056655665556")));
+
+        //* But since you're only comparing the text in 2 views, you can just use the Assert class
+//        Assert.equals(edittext1.getText().toString(), edittext2.getText().toString());
 
         /*assertEquals(CardType.VISA, CardType.detect("4000056655665556"));
         assertEquals(CardType.VISA, CardType.detect("4242424242424242"));
