@@ -36,16 +36,19 @@ public class CreditCardActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String typedNow = charSequence.toString();
-                b.TVNumber.setText(typedNow);
+//                numberText = charSequence.toString();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                numberText = editable.toString();
+                b.TVNumber.setText(numberText);//ng bisa
             }
         });
 
         b.BUTTONCekValiditas.setOnClickListener(v->{
+            b.TVNumber.setText(numberText);
+
             String isValidStr = b.EDITNumber.getText().toString();
             CardType.detect(isValidStr);
 
