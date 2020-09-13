@@ -32,8 +32,10 @@
 
             <EditText
                 android:id="@+id/EDIT_number"
+                android:maxLength="16"
+                android:inputType="number"
                 android:hint="@string/_0000_0000_0000_0000"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_text" />
 
@@ -59,10 +61,11 @@
 
             <EditText
                 android:id="@+id/EDIT_ccv"
+                android:maxLength="3"
+                android:inputType="number"
                 android:hint="@string/ccv"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:maxLength="3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_text" />
@@ -92,10 +95,11 @@
 
             <EditText
                 android:id="@+id/EDIT_month"
+                android:maxLength="2"
+                android:inputType="number"
                 android:hint="@string/expiry_date_month"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:maxLength="2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_text" />
@@ -112,10 +116,11 @@
 
             <EditText
                 android:id="@+id/EDIT_year"
+                android:maxLength="2"
+                android:inputType="number"
                 android:hint="@string/expiry_date_year"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:maxLength="2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_edit_text" />
@@ -142,7 +147,7 @@
             app2:layout_constraintEnd_toEndOf="parent"
             app2:layout_constraintStart_toStartOf="parent"
             app2:layout_constraintTop_toBottomOf="@id/linear_expiry">
-            <Button
+            <!--<Button
                 android:id="@+id/BUTTON_decrement"
                 android:text="decrement"
                 android:layout_width="wrap_content"
@@ -150,6 +155,16 @@
             <Button
                 android:id="@+id/BUTTON_increment"
                 android:text="increment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />-->
+            <Button
+                android:id="@+id/BUTTON_cek_validitas"
+                android:text="cek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/BUTTON_ok"
+                android:text="save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
