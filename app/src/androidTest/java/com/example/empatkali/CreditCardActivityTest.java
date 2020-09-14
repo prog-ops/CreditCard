@@ -37,18 +37,20 @@ public class CreditCardActivityTest {
     public void checkEditNumberHint(){
         onView((withId(R.id.EDIT_number))).check(matches(withHint("0000000000000000")));
     }
+
     @Test//*PASSED
     public void performEditNumberText(){
         String regex = "[0-9]+";
         onView(withId(R.id.EDIT_number)).perform(typeText(regex));
     }
+
     @Test
     public void checkTvNumberText(){
         String regex = "[0-9]+";
         onView(withId(R.id.TV_number)).check(matches(withText(regex)));
     }
 
-    @Test
+    @Test//*PASSED
     public void performButtonValiditas(){
         onView((withId(R.id.BUTTON_cek_validitas))).perform(click());
     }

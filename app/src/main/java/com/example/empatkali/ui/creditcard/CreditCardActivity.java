@@ -1,6 +1,8 @@
 package com.example.empatkali.ui.creditcard;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.empatkali.constants.CardType;
+import com.example.empatkali.data.Item;
 import com.example.empatkali.databinding.ActivityCreditCardBinding;
 
 public class CreditCardActivity extends AppCompatActivity {
@@ -18,6 +21,14 @@ public class CreditCardActivity extends AppCompatActivity {
             monthTextWatcher, yearTextWatcher;
     String numberStr;
     static int number = 0;
+    CreditCardViewModel viewModel;
+
+    private void setItem(Item item) {
+        if (item == null) {
+            item = new Item();
+            item.setNumber("2468");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +37,17 @@ public class CreditCardActivity extends AppCompatActivity {
         View view = b.getRoot();
         setContentView(view);
 
+
+        viewModel = ViewModelProviders.of(this).get(CreditCardViewModel.class);
+        viewModel.getItemLiveData().observe(this, new Observer<Item>() {
+            @Override
+            public void onChanged(Item item) {
+                if (item != null) {
+                    setItem(item);
+                    b.TVNumberViewmodel.setText(item.getNumber());
+                }
+            }
+        });
 
         b.EDITNumber.addTextChangedListener(numberTextWatcher);
 

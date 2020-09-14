@@ -19,7 +19,7 @@ import com.example.empatkali.R;
 import com.example.empatkali.databinding.CreditCardFragmentBinding;
 
 public class CreditCardFragment extends Fragment {
-    private CreditCardViewModel mViewModel;
+//    private CreditCardViewModel mViewModel;
     private TextWatcher numberTextWatcher, ccvTextWatcher, monthTextWatcher, yearTextWatcher;
     private CreditCardFragmentBinding b;
 
@@ -67,7 +67,7 @@ public class CreditCardFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(CreditCardViewModel.class);
+//        mViewModel = ViewModelProviders.of(this).get(CreditCardViewModel.class);
         // TODO: Use the ViewModel
 
     }
