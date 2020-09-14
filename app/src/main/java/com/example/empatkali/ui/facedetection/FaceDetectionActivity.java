@@ -5,7 +5,9 @@ import android.Manifest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +24,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.empatkali.R;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
@@ -32,6 +35,10 @@ import com.example.empatkali.databinding.ActivityFaceDetectionBinding;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class FaceDetectionActivity extends AppCompatActivity implements View.OnClickListener{
     ActivityFaceDetectionBinding b;
@@ -40,11 +47,53 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
     int currentIndex = 0;
     int[] imageArray;
     private Uri imageUri;
-    private static final int REQUEST_WRITE_PERMISSION = 200;
-    private static final int CAMERA_REQUEST = 101;
 
     private static final String SAVED_INSTANCE_URI = "uri";
     private static final String SAVED_INSTANCE_BITMAP = "bitmap";
+
+    private static final int REQUEST_WRITE_PERMISSION = 200;
+    private static final int CAMERA_REQUEST = 101;
+
+    private static final int REQUEST_CAPTURE_IMAGE = 100;//alternatif coba dari CAMERA_REQUEST
+    private void openCameraIntent() {
+        Intent pictureIntent = new Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getPackageManager())
+                != null) {
+            //Create a file to store the image
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, "com.example.empatkali.provider", photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        photoURI);
+                startActivityForResult(pictureIntent, REQUEST_CAPTURE_IMAGE);
+            }
+        }
+    }
+
+    String imageFilePath;
+    private File createImageFile() throws IOException {
+        String timeStamp =
+                new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir =
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        imageFilePath = image.getAbsolutePath();
+        return image;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +116,21 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
         initViews();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (imageUri != null) {
+            outState.putParcelable(SAVED_INSTANCE_BITMAP, editedBitmap);
+            outState.putString(SAVED_INSTANCE_URI, imageUri.toString());
+        }
+        super.onSaveInstanceState(outState);
+    }
+
     private void initViews() {
         processImage(imageArray[currentIndex]);
         currentIndex++;
 
         b.btnProcessNext.setOnClickListener(this);
-        b.btnTakePicture.setOnClickListener(this);
+        b.btnTakePictureCamera.setOnClickListener(this);
         b.imgTakePic.setOnClickListener(this);
     }
 
@@ -89,7 +147,7 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
 
                 break;
 
-            case R.id.btnTakePicture:
+            case R.id.btnTakePictureCamera:
                 ActivityCompat.requestPermissions(this, new
                         String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
                 break;
@@ -107,7 +165,9 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
         switch (requestCode) {
             case REQUEST_WRITE_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startCamera();
+//                    startCamera();
+
+                    openCameraIntent();
                 } else {
                     Toast.makeText(getApplicationContext(), "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
@@ -119,13 +179,36 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
         //tutorial ga ada super
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+        /*if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             launchMediaScanIntent();
             try {
                 processCameraPicture();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Failed to load Image", Toast.LENGTH_SHORT).show();
             }
+        }*/
+
+
+
+
+        /*if (requestCode == REQUEST_CAPTURE_IMAGE &&
+                resultCode == RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                b.imgTakePic.setImageBitmap(imageBitmap);
+            }
+        }*/
+        //or
+        if (requestCode == REQUEST_CAPTURE_IMAGE) {
+            //don't compare the data to null, it will always come as  null because we are providing a file URI, so load with the imageFilePath we obtained before opening the cameraIntent
+            Glide.with(this).load(imageFilePath).into(b.imgTakePic);
+            // If you are using Glide.
+        }
+        if (resultCode == Activity.RESULT_OK) {
+            Glide.with(this).load(imageFilePath).into(b.imgTakePic);
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            // User Cancelled the action
+            Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -134,7 +217,6 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
         mediaScanIntent.setData(imageUri);
         this.sendBroadcast(mediaScanIntent);
     }
-
     private void startCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File photo = new File(Environment.getExternalStorageDirectory(), "photo.jpg");
@@ -142,19 +224,7 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, CAMERA_REQUEST);
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (imageUri != null) {
-            outState.putParcelable(SAVED_INSTANCE_BITMAP, editedBitmap);
-            outState.putString(SAVED_INSTANCE_URI, imageUri.toString());
-        }
-        super.onSaveInstanceState(outState);
-    }
-
-
     private void processImage(int image) {
-
         Bitmap bitmap = decodeBitmapImage(image);
         if (detector.isOperational() && bitmap != null) {
             editedBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap
