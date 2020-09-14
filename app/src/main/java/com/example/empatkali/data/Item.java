@@ -1,5 +1,6 @@
 package com.example.empatkali.data;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,7 +9,14 @@ public class Item {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    private String number, monthYear, ccv;
+    @ColumnInfo(name = "number")
+    private String number;
+
+    @ColumnInfo(name = "monthYear")
+    private String monthYear;
+
+    @ColumnInfo(name = "ccv")
+    private String ccv;
 
     public long getId() {
         return id;

@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.empatkali.data.Item;
 import com.example.empatkali.data.Repository;
 
-import java.util.List;
-
 public class CreditCardViewModel extends AndroidViewModel {
     private Repository repository;
     private LiveData<Item> itemLiveData;

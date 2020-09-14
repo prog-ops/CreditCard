@@ -16,12 +16,11 @@ import com.example.empatkali.databinding.ActivityCreditCardBinding;
 
 public class CreditCardActivity extends AppCompatActivity {
     ActivityCreditCardBinding b;
-    private CreditCardViewModel mViewModel;
     private TextWatcher ccvTextWatcher,
             monthTextWatcher, yearTextWatcher;
     String numberStr;
     static int number = 0;
-    CreditCardViewModel viewModel;
+    private CreditCardViewModel viewModel;
 
     private void setItem(Item item) {
         if (item == null) {
