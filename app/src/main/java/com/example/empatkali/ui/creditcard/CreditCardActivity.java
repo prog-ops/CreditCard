@@ -25,7 +25,7 @@ public class CreditCardActivity extends AppCompatActivity {
     private void setItem(Item item) {
         if (item == null) {
             item = new Item();
-            item.setNumber("2468");
+            item.setNumber("24680");
         }
     }
 

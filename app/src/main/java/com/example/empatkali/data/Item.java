@@ -9,7 +9,7 @@ public class Item {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @ColumnInfo(name = "number")
+    @ColumnInfo(name = "number")//ga harus kayaknya
     private String number;
 
     @ColumnInfo(name = "monthYear")

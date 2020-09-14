@@ -9,11 +9,6 @@
     <string name="expiry_date_month">12</string>
 
 
-
-
-
-
-
     <!--Tea Names-->
     <string name="black_tea_name">Black Tea</string>
     <string name="green_tea_name">Green Tea</string>
@@ -48,7 +43,7 @@
 
 
     <!--OrderSummaryActivity summary values-->
-    <string name="order_summary"/>
+    <string name="order_summary" />
     <string name="total">Total</string>
     <string name="summary_tea_label">Tea Type</string>
     <string name="summary_size_label">Size</string>

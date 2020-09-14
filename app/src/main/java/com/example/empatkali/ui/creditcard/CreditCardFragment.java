@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.example.empatkali.R;
 import com.example.empatkali.databinding.CreditCardFragmentBinding;
+import com.example.empatkali.ui.facedetection.FaceDetectionActivity;
 
 public class CreditCardFragment extends Fragment {
 //    private CreditCardViewModel mViewModel;
@@ -59,6 +60,11 @@ public class CreditCardFragment extends Fragment {
             Intent intent = new Intent(getContext(), CreditCardActivity.class);
             startActivity(intent);
             //getActivity().finish();//ng
+        });
+
+        b.BUTTONDetectFace.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(), FaceDetectionActivity.class);
+            startActivity(intent);
         });
 
         return view;
