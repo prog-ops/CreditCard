@@ -38,7 +38,7 @@ public class CreditCardActivity extends AppCompatActivity {
 
 
         viewModel = ViewModelProviders.of(this).get(CreditCardViewModel.class);
-        viewModel.getItemLiveData().observe(this, new Observer<Item>() {
+        /*viewModel.getItemLiveData().observe(this, new Observer<Item>() {
             @Override
             public void onChanged(Item item) {
                 if (item != null) {
@@ -46,7 +46,7 @@ public class CreditCardActivity extends AppCompatActivity {
                     b.TVNumberViewmodel.setText(item.getNumber());
                 }
             }
-        });
+        });*/
 
         b.EDITNumber.addTextChangedListener(numberTextWatcher);
 
@@ -69,6 +69,37 @@ public class CreditCardActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "number SALAH", Toast.LENGTH_SHORT).show();
             }*/
+        });
+
+        String array[] = {
+                "^4[0-9]{12}(?:[0-9]{3}){0,2}$",
+                "^(?:5[1-5]|2(?!2([01]|20)|7(2[1-9]|3))[2-7])\\d{14}$",
+                "^3[47][0-9]{13}$",
+                "^3(?:0[0-5]\\d|095|6\\d{0,2}|[89]\\d{2})\\d{12,15}$",
+                "^6(?:011|[45][0-9]{2})[0-9]{12}$",
+                "^(?:2131|1800|35\\d{3})\\d{11}$",
+                "^62[0-9]{14,17}$"
+        };
+
+        b.BUTTONSave.setOnClickListener(v->{
+            String number = b.TVNumber.getText().toString();
+            String monthYear = b.TVExpiryDateMonth.getText().toString()+
+                    b.TVExpiryDateYear.getText().toString();
+            String ccv = b.TVCcv.getText().toString();
+
+            Item item = new Item();
+            item.setNumber(number);
+            item.setMonthYear(monthYear);
+            item.setCcv(ccv);
+
+            for (String a : array) {
+                if (number.matches(a)) {
+                    viewModel.insertItem(item);
+                } else {
+                    Toast.makeText(this, "INVALID "+number, Toast.LENGTH_SHORT).show();
+                }
+            }
+            finish();
         });
     }
 

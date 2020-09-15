@@ -10,15 +10,30 @@
         android:layout_height="wrap_content"
         tools:context=".ui.facedetection.FaceDetectionActivity">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/sample_1"
+        <LinearLayout
+            android:id="@+id/linear_imageView"
             app2:layout_constraintLeft_toLeftOf="parent"
             app2:layout_constraintRight_toRightOf="parent"
-            app2:layout_constraintTop_toTopOf="parent" />
+            app2:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--
+            android:layout_width="300dp"
+            android:layout_height="300dp"-->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/sample_1" />
+            <TextView
+                android:id="@+id/txtSampleDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnProcessNext"
@@ -29,16 +44,17 @@
             app2:layout_constraintHorizontal_bias="0.501"
             app2:layout_constraintLeft_toLeftOf="parent"
             app2:layout_constraintRight_toRightOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app2:layout_constraintTop_toBottomOf="@+id/linear_imageView" />
 
         <ImageView
             android:id="@+id/imgTakePic"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:scaleType="fitCenter"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="8dp"
             app2:layout_constraintLeft_toLeftOf="parent"
             app2:layout_constraintRight_toRightOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/txtSampleDescription"
+            app2:layout_constraintTop_toBottomOf="@+id/btnProcessNext"
             app2:srcCompat="@android:drawable/ic_menu_camera" />
 
         <Button
@@ -52,27 +68,14 @@
             app2:layout_constraintTop_toBottomOf="@+id/imgTakePic" />
 
         <TextView
-            android:id="@+id/txtSampleDescription"
+            android:id="@+id/txtTakePicture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            app2:layout_constraintBottom_toTopOf="@+id/txtTakePicture"
-            app2:layout_constraintLeft_toLeftOf="parent"
-            app2:layout_constraintRight_toRightOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/btnProcessNext"
-            app2:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/txtTakePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
             app2:layout_constraintLeft_toLeftOf="parent"
             app2:layout_constraintRight_toRightOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/btnTakePicture" />
+            app2:layout_constraintTop_toBottomOf="@+id/btnTakePictureCamera" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

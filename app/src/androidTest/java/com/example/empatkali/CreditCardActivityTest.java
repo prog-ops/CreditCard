@@ -1,31 +1,22 @@
 package com.example.empatkali;
 
-import android.view.View;
-import android.widget.EditText;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.empatkali.constants.CardType;
 import com.example.empatkali.ui.creditcard.CreditCardActivity;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.regex.Matcher;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static java.util.EnumSet.allOf;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class CreditCardActivityTest {
@@ -34,15 +25,74 @@ public class CreditCardActivityTest {
             new ActivityTestRule<>(CreditCardActivity.class);
 
     @Test//*PASSED
-    public void checkEditNumberHint(){
+    public void checkNPerformEditNumber(){
         onView((withId(R.id.EDIT_number))).check(matches(withHint("0000000000000000")));
+//        String regex = "[0-9]+";
+        String regex = "^[0-9]{16}$";//?
+
+        CardType cardType = CardType.detect(regex);
+
+        String array[] = {
+                "^4[0-9]{12}(?:[0-9]{3}){0,2}$",
+                "^(?:5[1-5]|2(?!2([01]|20)|7(2[1-9]|3))[2-7])\\d{14}$",
+                "^3[47][0-9]{13}$",
+                "^3(?:0[0-5]\\d|095|6\\d{0,2}|[89]\\d{2})\\d{12,15}$",
+                "^6(?:011|[45][0-9]{2})[0-9]{12}$",
+                "^(?:2131|1800|35\\d{3})\\d{11}$",
+                "^62[0-9]{14,17}$"
+        };
+
+        for (String a : array) {
+            onView(withId(R.id.EDIT_number)).perform(typeText(a));
+        }
     }
 
     @Test//*PASSED
+    public void checkEditNPerformCCV(){
+        onView((withId(R.id.EDIT_ccv))).check(matches(withHint("000")));
+        String regex = "[0-9]{3}$";//ng
+        onView(withId(R.id.EDIT_ccv)).perform(typeText(regex));
+    }
+
+    @Test//*PASSED
+    public void checkEditMonthHint(){
+        onView((withId(R.id.EDIT_month))).check(matches(withHint("12")));
+        //ng bisa
+        String months[] = {"01","02","03","04","05","06","07","08","09","10","11","12"};
+        for (String month : months) {
+            onView(withId(R.id.EDIT_month)).perform(typeText(month));
+        }
+    }
+
+    @Test//*PASSED
+    public void checkNPerformEditYear(){
+        onView((withId(R.id.EDIT_year))).check(matches(withHint("2020")));
+        /*
+            Years from 1000 to 2999
+            ^[12][0-9]{3}$
+
+            For 1900-2099
+            ^(19|20)\d{2}$
+
+            1970-2019:
+            (19[789]\d|20[01]\d)
+
+            ng
+            2020-2100:
+            (20[23456789]\d|21[01]\d)
+         */
+//        String regex = "^([5-9]\\d|[1-9]\\d{2,})$";
+//        String regex = "^(20|20)\\d{2}$";//ng
+        String regex = "(20[234]\\d|21[01]\\d)";
+        onView(withId(R.id.EDIT_year)).perform(typeText(regex));
+    }
+
+    //! bisa dijadikan satu dengan cek hint jadi ini ga usah
+    /*@Test//*PASSED
     public void performEditNumberText(){
         String regex = "[0-9]+";
         onView(withId(R.id.EDIT_number)).perform(typeText(regex));
-    }
+    }*/
 
     @Test
     public void checkTvNumberText(){
@@ -97,6 +147,7 @@ public class CreditCardActivityTest {
         assertEquals(CardType.UNKNOWN, CardType.detect("0000000000000000"));*/
     }
 
+    //ga dipake
     @Test
     public void clickIncrementButton_ChangesQuantityAndCost() {
         // Check the initial quantity variable is zero

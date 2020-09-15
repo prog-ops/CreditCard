@@ -125,7 +125,7 @@
             android:background="@drawable/background_edit_text"
             android:hint="@string/expiry_date_year"
             android:inputType="number"
-            android:maxLength="2"
+            android:maxLength="4"
             android:padding="10dp" />
 
         <TextView
@@ -167,7 +167,7 @@
             android:text="cek" />
 
         <Button
-            android:id="@+id/BUTTON_ok"
+            android:id="@+id/BUTTON_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="save" />

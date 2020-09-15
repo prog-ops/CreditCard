@@ -173,10 +173,20 @@
     <!-- layout_gravity untuk dimana posisi linear berada-->
     <!-- gravity untuk dimana posisi view di dalam linear berada-->
     <LinearLayout
-        android:layout_gravity="center"
+        android:layout_gravity="center|top"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/RV_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <Button
             android:background="@drawable/background_linear"
             android:layout_margin="20dp"
