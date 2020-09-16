@@ -23,9 +23,16 @@
         android:background="@drawable/background_linear"
         android:orientation="vertical"
         android:padding="10dp"
+        app2:layout_constraintBottom_toTopOf="@+id/linear_ccv"
         app2:layout_constraintEnd_toEndOf="parent"
         app2:layout_constraintStart_toStartOf="parent"
         app2:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Credit Card Number" />
 
         <EditText
             android:id="@+id/EDIT_number"
@@ -46,10 +53,10 @@
         <!--VIEWMODEL WORKS FINE-->
         <TextView
             android:id="@+id/TV_number_viewmodel"
-            android:text=""
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLength="16" />
+            android:maxLength="16"
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,12 +65,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/background_linear"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
+        app2:layout_constraintBottom_toTopOf="@+id/linear_expiry"
         app2:layout_constraintEnd_toEndOf="parent"
         app2:layout_constraintStart_toStartOf="parent"
         app2:layout_constraintTop_toBottomOf="@id/linear_number">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="CCV" />
 
         <EditText
             android:id="@+id/EDIT_ccv"
@@ -94,9 +107,16 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
+        app2:layout_constraintBottom_toTopOf="@+id/linear_buttons"
         app2:layout_constraintEnd_toEndOf="parent"
         app2:layout_constraintStart_toStartOf="parent"
         app2:layout_constraintTop_toBottomOf="@id/linear_ccv">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Month" />
 
         <EditText
             android:id="@+id/EDIT_month"
@@ -108,15 +128,21 @@
             android:maxLength="2"
             android:padding="10dp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/TV_expiry_date_month"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:maxLength="4"
+            android:maxLength="2"
             app2:layout_constraintEnd_toEndOf="parent"
             app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/TV_ccv" />
+            app2:layout_constraintTop_toBottomOf="@+id/TV_ccv" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Year" />
 
         <EditText
             android:id="@+id/EDIT_year"
@@ -125,24 +151,21 @@
             android:background="@drawable/background_edit_text"
             android:hint="@string/expiry_date_year"
             android:inputType="number"
-            android:maxLength="4"
+            android:maxLength="2"
             android:padding="10dp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/TV_expiry_date_year"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLength="4"
-            app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/TV_expiry_date_month" />
+            android:maxLength="2" />-->
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="202dp"
         android:background="@drawable/background_linear"
         android:gravity="center"
         android:padding="10dp"

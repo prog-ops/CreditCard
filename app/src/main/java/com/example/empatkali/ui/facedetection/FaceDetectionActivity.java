@@ -359,13 +359,14 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
             } else {
                 b.imgTakePic.setImageBitmap(editedBitmap);
                 b.txtTakePicture.setText(b.txtTakePicture.getText() + "No of Faces Detected: " + " " + String.valueOf(faces.size()));
-            }
 
-            b.txtTakePicture.setOnClickListener(v->{
-                Intent intent = new Intent(this, CreditCardActivity.class);
-                startActivity(intent);
-                Toast.makeText(this, "Foto valid", Toast.LENGTH_SHORT).show();
-            });
+                b.btnToCreditCard.setVisibility(View.VISIBLE);
+                b.btnToCreditCard.setOnClickListener(v->{
+                    Intent intent = new Intent(this, CreditCardActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(this, "Foto valid", Toast.LENGTH_SHORT).show();
+                });
+            }
 
         } else {
             b.txtTakePicture.setText("Could not set up the detector!");
