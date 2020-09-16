@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,14 +12,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.empatkali.constants.CardType;
+import com.example.empatkali.constants.CreditCardUtils;
 import com.example.empatkali.data.Item;
 import com.example.empatkali.databinding.ActivityCreditCardBinding;
 
 public class CreditCardActivity extends AppCompatActivity {
     ActivityCreditCardBinding b;
-    private TextWatcher ccvTextWatcher,
-            monthTextWatcher, yearTextWatcher;
-    String numberStr;
+    String numberStr, ccvStr, validityStr;
     static int number = 0;
     private CreditCardViewModel viewModel;
 
@@ -81,15 +81,33 @@ public class CreditCardActivity extends AppCompatActivity {
                 "^62[0-9]{14,17}$"
         };
 
+        b.BUTTONCekValiditas.setOnClickListener(v->{
+            String number = b.EDITNumber.getText().toString();
+            String validity = b.EDITValidityMonthYear.getText().toString();
+            if (CreditCardUtils.isValid(number)) {
+                Toast.makeText(this, "invalid number (1)", Toast.LENGTH_SHORT).show();
+
+            } else if (CreditCardUtils.isValidDate(validity)) {
+                Toast.makeText(this, "invalid date (2)", Toast.LENGTH_SHORT).show();
+
+            } else if (b.EDITCcv.getText()
+                    .toString().length() < 3) {
+                Toast.makeText(this, "invalid ccv (3)", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "invalid!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         b.BUTTONSave.setOnClickListener(v->{
-            String number = b.TVNumber.getText().toString();
-            String monthYear = b.TVExpiryDateMonth.getText().toString()+
-                    b.TVExpiryDateYear.getText().toString();
-            String ccv = b.TVCcv.getText().toString();
+            String number = b.EDITNumber.getText().toString();
+//            String monthYear = b.EDITMonth.getText().toString()+
+//                    b.EDITYear.getText().toString();
+            String ccv = b.EDITCcv.getText().toString();
 
             Item item = new Item();
             item.setNumber(number);
-            item.setMonthYear(monthYear);
+//            item.setMonthYear(monthYear);
             item.setCcv(ccv);
 
             for (String a : array) {
@@ -105,8 +123,7 @@ public class CreditCardActivity extends AppCompatActivity {
 
     private TextWatcher numberTextWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 //                numberStr = charSequence.toString();
@@ -114,8 +131,48 @@ public class CreditCardActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable editable) {
             numberStr = editable.toString();
-            if (!numberStr.isEmpty())
-                b.TVNumber.setText(numberStr);//ng bisa
+            /*if (!numberStr.isEmpty())
+                b.TVNumber.setText(numberStr);//ng bisa*/
+
+            if (numberStr.length() >= 13 && numberStr.length() < 17) {
+
+                b.EDITNumber.setBackgroundColor(Color.argb(0, 100, 255, 100));
+
+                if (CreditCardUtils.isValid(numberStr)) {
+//                    String get = CreditCardUtils.getName(numberStr);
+                    int getInt = CreditCardUtils.getCardType(numberStr);
+
+                    if (getInt == 1) {
+                        b.TVNumber.setText(get);
+                    }
+
+                } else {
+                    b.EDITNumber.setError("invalid");
+
+                }
+            }
+        }
+    };
+
+    private TextWatcher ccvTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+    private TextWatcher validityTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        @Override
+        public void afterTextChanged(Editable editable) {
+
         }
     };
 

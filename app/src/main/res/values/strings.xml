@@ -6,7 +6,7 @@
     <string name="_0000_0000_0000_0000">0000000000000000</string>
     <string name="ccv">000</string>
     <string name="expiry_date_year">20</string>
-    <string name="expiry_date_month">12</string>
+    <string name="expiry_date_month">00/00</string>
 
 
     <!--Tea Names-->
@@ -64,6 +64,7 @@
     <string name="loading_msg">Your tea is brewing…</string>
     <string name="done_msg">Your tea is ready!</string>
     <string name="credit_card">Credit Card</string>
+    <string name="validity">Validity</string>
 
 
     <!--Spinner Options-->
