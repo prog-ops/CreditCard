@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.empatkali.constants.CardType;
+import com.example.empatkali.constants.CreditCardUtils;
 import com.example.empatkali.ui.creditcard.CreditCardActivity;
 
 import org.junit.Rule;
@@ -25,6 +26,56 @@ public class CreditCardActivityTest {
             new ActivityTestRule<>(CreditCardActivity.class);
 
     @Test//*PASSED
+    public void checkNPerformTvNumber(){
+
+        String[] array = {
+                "^4[0-9]{12}(?:[0-9]{3}){0,2}$",
+                "^(?:5[1-5]|2(?!2([01]|20)|7(2[1-9]|3))[2-7])\\d{14}$",
+                "^3[47][0-9]{13}$",
+                "^3(?:0[0-5]\\d|095|6\\d{0,2}|[89]\\d{2})\\d{12,15}$",
+                "^6(?:011|[45][0-9]{2})[0-9]{12}$",
+                "^(?:2131|1800|35\\d{3})\\d{11}$",
+                "^62[0-9]{14,17}$"
+        };
+
+        for (String a : array) {
+            if (CreditCardUtils.isValid(a)) {
+                int getInt = CreditCardUtils.getCardType(a);
+
+                if (getInt == CreditCardUtils.VISA) {
+                    onView((withId(R.id.TV_cc_name))).check(matches(withText("VISA")));
+                    onView((withId(R.id.TV_number))).check(matches(withText(a)));
+
+                } else if (getInt == CreditCardUtils.MASTERCARD) {
+                    onView((withId(R.id.TV_cc_name))).check(matches(withText("MASTERCARD")));
+                    onView((withId(R.id.TV_number))).check(matches(withText(a)));
+
+                } else if (getInt == CreditCardUtils.DISCOVER) {
+                    onView((withId(R.id.TV_cc_name))).check(matches(withText("DISCOVER")));
+                    onView((withId(R.id.TV_number))).check(matches(withText(a)));
+
+                } else if (getInt == CreditCardUtils.AMEX) {
+                    onView((withId(R.id.TV_cc_name))).check(matches(withText("AMEX")));
+                    onView((withId(R.id.TV_number))).check(matches(withText(a)));
+
+                } else {
+                    onView((withId(R.id.TV_cc_name))).check(matches(withText("?")));
+                    onView((withId(R.id.TV_number))).check(matches(withText("unknown credit card type")));
+
+                }
+
+            } else if (a.length() <= 1){
+                onView((withId(R.id.TV_cc_name))).check(matches(withText("?")));
+                onView((withId(R.id.TV_number))).check(matches(withText("")));
+
+            } else {
+                onView((withId(R.id.TV_cc_name))).check(matches(withText("")));
+                onView((withId(R.id.TV_number))).check(matches(withText("")));
+            }
+        }
+    }
+
+    @Test//*PASSED
     public void checkNPerformEditNumber(){
         onView((withId(R.id.EDIT_number))).check(matches(withHint("0000000000000000")));
 //        String regex = "[0-9]+";
@@ -32,7 +83,7 @@ public class CreditCardActivityTest {
 
         CardType cardType = CardType.detect(regex);
 
-        String array[] = {
+        String[] array = {
                 "^4[0-9]{12}(?:[0-9]{3}){0,2}$",
                 "^(?:5[1-5]|2(?!2([01]|20)|7(2[1-9]|3))[2-7])\\d{14}$",
                 "^3[47][0-9]{13}$",
@@ -94,19 +145,23 @@ public class CreditCardActivityTest {
         onView(withId(R.id.EDIT_number)).perform(typeText(regex));
     }*/
 
-    @Test
+    /*@Test
     public void checkTvNumberText(){
         String regex = "[0-9]+";
         onView(withId(R.id.TV_number)).check(matches(withText(regex)));
-    }
+    }*/
 
+
+    //* TES UNTUK KLIK SAVE JIKA SEMUA DATA KOSONG
     @Test//*PASSED
-    public void performButtonValiditas(){
-        onView((withId(R.id.BUTTON_cek_validitas))).perform(click());
+    public void performButtonSave(){
+        onView((withId(R.id.BUTTON_save))).perform(click());
     }
 
-    @Test
-    public void inputEditNumber(){
+
+    //* TES UNTUK KLIK SAVE JIKA SEMUA DATA LENGKAP
+    @Test//*PASSED
+    public void checkNPerformSemua(){
         String regex = "[0-9]+";
 
         //! INITIAL
@@ -118,7 +173,10 @@ public class CreditCardActivityTest {
 
         //! 2ND PERFORM
         onView((withId(R.id.EDIT_number))).perform(typeText("4000056655665556"));
-        onView((withId(R.id.BUTTON_cek_validitas))).perform(click());
+        onView((withId(R.id.EDIT_ccv))).perform(typeText("123"));
+        onView((withId(R.id.EDIT_validity_month_year))).perform(typeText("12/20"));
+        onView((withId(R.id.BUTTON_save))).perform(click());
+//        onView((withId(R.id.BUTTON_cek_validitas))).perform(click());//passed
 
         //! RESULTS
 

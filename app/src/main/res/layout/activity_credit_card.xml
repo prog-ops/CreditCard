@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:fitsSystemWindows="true"
+    style="@style/AppBaseTheme"
     tools:context=".ui.creditcard.CreditCardActivity">
     <!--<com.devmarvel.creditcardentry.library.CreditCardForm
         android:id="@+id/credit_card_form"
@@ -15,10 +16,13 @@
         app2:include_zip="false"/>-->
 
     <LinearLayout
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/linear_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/background_linear"
         android:orientation="vertical"
         android:padding="10dp"
@@ -44,10 +48,16 @@
             android:padding="10dp" />
 
         <TextView
+            android:id="@+id/TV_cc_name"
+            android:inputType="text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
             android:id="@+id/TV_number"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxLength="16" />
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
         <!--VIEWMODEL WORKS FINE-->
         <TextView
@@ -59,10 +69,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/linear_ccv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/background_linear"
         android:orientation="vertical"
         android:padding="10dp"
@@ -98,12 +111,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/linear_expiry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/background_linear"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         app2:layout_constraintBottom_toTopOf="@+id/linear_buttons"
@@ -126,14 +141,23 @@
             android:inputType="number"
             android:maxLength="5"
             android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/TV_validity_month_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="#0f0"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="202dp"
         android:id="@+id/linear_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="202dp"
-        android:background="@drawable/background_linear"
         android:gravity="center"
         android:padding="10dp"
         app2:layout_constraintBottom_toBottomOf="parent"
@@ -141,20 +165,10 @@
         app2:layout_constraintStart_toStartOf="parent"
         app2:layout_constraintTop_toBottomOf="@id/linear_expiry">
         <!--<Button
-            android:id="@+id/BUTTON_decrement"
-            android:text="decrement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/BUTTON_increment"
-            android:text="increment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />-->
-        <Button
             android:id="@+id/BUTTON_cek_validitas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cek" />
+            android:text="cek" />-->
 
         <Button
             android:id="@+id/BUTTON_save"

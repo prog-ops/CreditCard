@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.empatkali.R;
+import com.example.empatkali.data.Facedata;
 import com.example.empatkali.ui.creditcard.CreditCardActivity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 public class FaceDetectionActivity extends AppCompatActivity implements View.OnClickListener{
     // tutorial 1
@@ -280,7 +282,11 @@ public class FaceDetectionActivity extends AppCompatActivity implements View.OnC
             }
 
             b.txtTakePicture.setOnClickListener(v->{
+                Facedata facedata = new Facedata();
+                facedata.setImage(editedBitmap.getNinePatchChunk());
+                facedata.setImage_name(UUID.randomUUID().toString());
                 Intent intent = new Intent(this, CreditCardActivity.class);
+                intent.putExtra("facedata", facedata);
                 startActivity(intent);
                 Toast.makeText(this, "Image valid", Toast.LENGTH_SHORT).show();
             });

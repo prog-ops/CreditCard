@@ -12,6 +12,9 @@ public class Item {
     @ColumnInfo(name = "number")//ga harus kayaknya
     private String number;
 
+    @ColumnInfo(name = "name")
+    private String name;
+
     @ColumnInfo(name = "monthYear")
     private String monthYear;
 
@@ -34,6 +37,14 @@ public class Item {
         this.number = number;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getMonthYear() {
         return monthYear;
     }
@@ -49,4 +60,5 @@ public class Item {
     public void setCcv(String ccv) {
         this.ccv = ccv;
     }
+
 }

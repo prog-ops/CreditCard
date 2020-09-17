@@ -22,13 +22,13 @@ public class CreditCardAdapter extends RecyclerView.Adapter<CreditCardAdapter.H>
     private List<Item> pItems;
     private CreditCardViewModel viewModel;
 
-    CreditCardAdapter(List<Item> items, Context context) {
+    public CreditCardAdapter(List<Item> items, Context context) {
         this.pItems = items;
         this.pContext = context;
         viewModel = ViewModelProviders.of((FragmentActivity) context).get(CreditCardViewModel.class);
     }
 
-    void setList(List<Item> list) {
+    public void setList(List<Item> list) {
         if (pItems == null) {
             pItems = new ArrayList<>();
         }
